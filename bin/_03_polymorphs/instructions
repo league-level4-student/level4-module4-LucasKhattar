@@ -1,5 +1,5 @@
 1. Encapsulate the member variables of the abstract Polymorph class.
-
+Done
 2. Create new member variables for the width and height of the polymorph and substitute them for the hard-coded numbers in the draw method of the BluePolymorph class. Make sure they are properly encapsulated.
 
 3. Create a new sub-class of the Polymorph class called RedMorph. Make this polymorph render red instead of blue. Create an object of RedMorph in the PolymorphWindow class and test it.
