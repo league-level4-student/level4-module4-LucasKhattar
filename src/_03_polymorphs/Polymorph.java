@@ -2,6 +2,9 @@ package _03_polymorphs;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 public abstract class Polymorph{
     protected int x;
@@ -62,10 +65,24 @@ public abstract class Polymorph{
    	 this.x = x;
    	 this.y = y;
     }
-    
+    int X = 1;
+    int Y = 1;
     public void update(){
-   	x += 1;
-   	y += 1;
+    	if(x < 0) {
+    		X = 1;
+    	}
+    	else if(y < 0) {
+    		Y = 1;
+    	}
+    	else if(x > 450) {
+    		X = -1;
+    	}
+    	else if(y > 350) {
+    		Y = -1;
+    	}
+    	
+    	x += X;
+    	y += Y;
     }
     
     public abstract void draw(Graphics g);
@@ -80,8 +97,37 @@ class RedPolymorph extends Polymorph{
 	public void draw(Graphics g) {
 		g.setColor(Color.red);
 		g.fillRect(x, y, width, height);
+	}	
+}
+class CirclePolymorph extends Polymorph{
+	CirclePolymorph(int x, int y){
+		super(x, y);
 	}
-	
+	@Override
+	public void draw(Graphics g) {
+		g.setColor(Color.yellow);
+		g.fillRect(x, y, width, height);
+	}
+	int angle = 0;
+	public void update() {
+		x += Math.sin(angle) * 50;
+		y += Math.cos(angle) * 50;
+		angle++;
+	}
+}
+
+class MousePolymorph extends Polymorph{
+	MousePolymorph(int x, int y){
+		super(x, y);
+	}
+	@Override
+	public void draw(Graphics g) {
+		g.setColor(Color.green);
+		g.fillRect(x, y, width, height);
+	}
+	int angle = 0;
+	public void update() {}
+
 }
 
 class MovingMorph extends Polymorph {
@@ -89,10 +135,9 @@ class MovingMorph extends Polymorph {
 	MovingMorph(int x, int y) {
 		super(x, y);
 	}
-	
+
 	public void update(){
-		x += 1;
-		y += 1;
+
     }
 
 	@Override

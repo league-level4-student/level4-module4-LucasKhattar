@@ -7,11 +7,11 @@ DONE
 4. Create a new sub-class of the Polymorph class called MovingMorph. Add code to the update method to make MovingMorph objects move around the screen. Create a MovingMorph object in your PolymorphWindow class and test it. Don't forget to call the update method.
 DONE
 5. That was fun! Now, delete all references to Polymorphs inside your PolymorphWindow class. Create an ArrayList of Polymorphs inside your PolymorphWindow class. Initialize the ArrayList and add a bunch of different types of Polymorph objects to the array list.
-
+DONE
 6. Use for-each loops to call the draw and update method for all the Polymorphs in the list.
-
+DONE
 7. Let's create more Polymorphs! Create a new sub-class of Polymorphs for each of the following…
-	a) Create a Polymorph that moves in a circle. hint: Math.sin() Math.cos()
-	b) Create a Polymorph that follows your mouse.
-	c) Create a Polymorph that displays an image.
+	a) Create a Polymorph that moves in a circle. hint: Math.sin() Math.cos() DONE
+	b) Create a Polymorph that follows your mouse. DONE
+	c) Create a Polymorph that displays an image. NOT WORKING YET
 	d) Create a Polymorph that displays a JOptionPane message dialog when clicked.
