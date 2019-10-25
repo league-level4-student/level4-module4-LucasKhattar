@@ -5,12 +5,16 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 
-public abstract class Polymorph{
+import javax.swing.JOptionPane;
+
+public abstract class Polymorph implements MouseMotionListener, MouseListener{
     protected int x;
     protected int y;
     protected int width = 50;
     protected int height = 50;
+    BufferedImage image;
     public int getX() {
     	return x;
     }
@@ -65,20 +69,20 @@ public abstract class Polymorph{
    	 this.x = x;
    	 this.y = y;
     }
-    int X = 1;
-    int Y = 1;
+    int X = 5;
+    int Y = 5;
     public void update(){
     	if(x < 0) {
-    		X = 1;
+    		X = 5;
     	}
     	else if(y < 0) {
-    		Y = 1;
+    		Y = 5;
     	}
-    	else if(x > 450) {
-    		X = -1;
+    	else if(x > 1850) {
+    		X = -5;
     	}
-    	else if(y > 350) {
-    		Y = -1;
+    	else if(y > 900) {
+    		Y = -5;
     	}
     	
     	x += X;
@@ -88,7 +92,7 @@ public abstract class Polymorph{
     public abstract void draw(Graphics g);
 
 }
-class RedPolymorph extends Polymorph{
+class RedPolymorph extends Polymorph implements MouseListener{
 
 	RedPolymorph(int x, int y) {
 		super(x, y);
@@ -97,7 +101,32 @@ class RedPolymorph extends Polymorph{
 	public void draw(Graphics g) {
 		g.setColor(Color.red);
 		g.fillRect(x, y, width, height);
-	}	
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(null, "Message");
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	
+	@Override
+	public void mouseExited(MouseEvent e) {}
+	
+	@Override
+	public void mouseDragged(MouseEvent e) {}
+	
+	@Override
+	public void mouseMoved(MouseEvent e) {}	
+	
 }
 class CirclePolymorph extends Polymorph{
 	CirclePolymorph(int x, int y){
@@ -114,9 +143,30 @@ class CirclePolymorph extends Polymorph{
 		y += Math.cos(angle) * 50;
 		angle++;
 	}
+	@Override
+	public void mouseDragged(MouseEvent e) {}
+	
+	@Override
+	public void mouseMoved(MouseEvent e) {}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {}
+	
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	
+	@Override
+	public void mouseExited(MouseEvent e) {}
+	
 }
 
-class MousePolymorph extends Polymorph{
+class MousePolymorph extends Polymorph implements MouseMotionListener{
 	MousePolymorph(int x, int y){
 		super(x, y);
 	}
@@ -127,6 +177,30 @@ class MousePolymorph extends Polymorph{
 	}
 	int angle = 0;
 	public void update() {}
+	@Override
+	public void mouseDragged(MouseEvent e) {}
+	
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		x = e.getX() - 25;
+		y = e.getY() - 50;
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {}
+	
+	@Override
+	public void mousePressed(MouseEvent e) {}
+	
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	
+	@Override
+	public void mouseExited(MouseEvent e) {}
 
 }
 
@@ -145,4 +219,25 @@ class MovingMorph extends Polymorph {
 		g.setColor(Color.red);
 		g.fillRect(x, y, width, height);
 	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {}
+
+	@Override
+	public void mousePressed(MouseEvent e) {}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+	@Override
+	public void mouseExited(MouseEvent e) {}
 }

@@ -3,6 +3,7 @@ package _03_polymorphs;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -24,8 +25,8 @@ public class PolymorphWindow extends JPanel implements ActionListener, MouseMoti
     
     ArrayList<Polymorph> poly = new ArrayList();
     Polymorph bluePoly = new BluePolymorph(220, 54);
-  	Polymorph redPoly = new RedPolymorph(62, 56);
-  	Polymorph circlePoly = new CirclePolymorph(250, 250);
+  	Polymorph redPoly = new RedPolymorph(200, 321);
+  	Polymorph circlePoly = new CirclePolymorph(1000, 500);
   	Polymorph mousePoly = new MousePolymorph(50, 50);
   	
     public static void main(String[] args) {
@@ -35,7 +36,7 @@ public class PolymorphWindow extends JPanel implements ActionListener, MouseMoti
     public void buildWindow(){
    	 window = new JFrame("IT'S MORPHIN' TIME!");
    	 window.add(this);
-   	 window.getContentPane().setPreferredSize(new Dimension(500, 400));
+   	 window.getContentPane().setPreferredSize(new Dimension(2000, 1000));
    	 window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    	 window.pack();
    	 window.setVisible(true);
@@ -43,7 +44,8 @@ public class PolymorphWindow extends JPanel implements ActionListener, MouseMoti
    	 poly.add(bluePoly);
    	 poly.add(circlePoly);
    	 poly.add(mousePoly);
-   	 window.addMouseMotionListener(this);
+   	 window.addMouseMotionListener(mousePoly);
+   	 window.addMouseListener(redPoly);
    	 timer = new Timer(1000 / 30, this);
    	 timer.start();
     }
@@ -53,7 +55,7 @@ public class PolymorphWindow extends JPanel implements ActionListener, MouseMoti
     public void paintComponent(Graphics g){
     //draw background
    	 g.setColor(Color.LIGHT_GRAY);
-   	 g.fillRect(0, 0, 500, 400);
+   	 g.fillRect(0, 0, 2000, 1000);
    	
    	 //draw polymorph
    	 for(Polymorph poly: poly) {
@@ -70,19 +72,6 @@ public class PolymorphWindow extends JPanel implements ActionListener, MouseMoti
     }
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		mousePoly.x = e.getX() - 25;
-		mousePoly.y = e.getY() - 50;
-	}
-
-	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
@@ -91,9 +80,7 @@ public class PolymorphWindow extends JPanel implements ActionListener, MouseMoti
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if(redPoly.equals(e.getSource())) {
-			JOptionPane.showMessageDialog(null, "HEJ");
-		}
+		
 	}
 
 	@Override
@@ -113,4 +100,17 @@ public class PolymorphWindow extends JPanel implements ActionListener, MouseMoti
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
