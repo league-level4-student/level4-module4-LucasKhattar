@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 class DoctorFullException extends Exception {}
 
-
-
-
 public class Hospital {
 	List<Doctor> docs = new ArrayList();
 	List<Patient> pats = new ArrayList();
@@ -19,12 +16,12 @@ public class Hospital {
 		
 	}
 
-	public void addDoctor(GeneralPractitioner generalPractitioner2) {
-		docs.add(generalPractitioner2);
+	public void addDoctor(GeneralPractitioner generalPractitioner) {
+		docs.add(generalPractitioner);
 	}
 	
-	public void addDoctor(Surgeon sergio) {
-		docs.add(sergio);
+	public void addDoctor(Surgeon surgeon) {
+		docs.add(surgeon);
 	}
 
 	public void addPatient(Patient patient) {
