@@ -2,6 +2,10 @@ package _04_hospital;
 
 import java.util.ArrayList;
 import java.util.List;
+class DoctorFullException extends Exception {}
+
+
+
 
 public class Hospital {
 	List<Doctor> docs = new ArrayList();
@@ -19,8 +23,8 @@ public class Hospital {
 		docs.add(generalPractitioner2);
 	}
 	
-	public void addDoctor(Surgeon surgeon2) {
-		docs.add(surgeon2);
+	public void addDoctor(Surgeon sergio) {
+		docs.add(sergio);
 	}
 
 	public void addPatient(Patient patient) {
@@ -35,38 +39,44 @@ public class Hospital {
 		return pats;
 	}
 
-	public void assignPatientsToDoctors() {
+	public void assignPatientsToDoctors() throws DoctorFullException{
 		for (Patient pat: pats) {
 			for (Doctor doc: docs) {
 				Doctor docs = (Doctor)hospital;
-				if(docs.pats2.size() > 3) {				
-					docs.assignPatient(pat);
-				}
+				docs.assignPatient(pat);
 			}
 		}
 	}
 }
 
 class Doctor extends Hospital{
-	List<Patient> pats2 = new ArrayList();
+	List<Patient> docsPats = new ArrayList();
+	List<Patient> caredFor = new ArrayList();
 	public Doctor() {
 		super();
 	}
 	
-	public void assignPatient(Patient max) {
-		
+	public void assignPatient(Patient max) throws DoctorFullException {
+		if(docsPats.size() < 3) {				
+			docsPats.add(max);
+		}
+		else {
+			throw new DoctorFullException();
+		}
+	}
+	
+	public boolean performsSurgery() {
+		return false;
 	}
 
-	public Object performsSurgery() {
-		return null;
-	}
-
-	public Object makesHouseCalls() {
-		return null;
+	public boolean makesHouseCalls() {
+		return false;
 	}
 
 	public void doMedicine() {
-		
+		for (int i = 0; i < docsPats.size(); i++) {
+			caredFor.add(docsPats.get(i));
+		}
 	}
 }
 
@@ -75,8 +85,9 @@ class GeneralPractitioner extends Doctor {
 		super();
 	}
 
-	public Object makesHouseCalls() {
-		return null;
+	@Override
+	public boolean makesHouseCalls() {
+		return true;
 	}
 }
 
@@ -84,18 +95,32 @@ class Surgeon extends Doctor {
 	Surgeon(){
 		super();
 	}
+	
+	@Override
+	public boolean performsSurgery() {
+		return true;
+	}
 }
 
 class Patient extends Hospital{
 	Patient(){
 		super();
 	}
-
-	public Object feelsCaredFor() {
-		return null;
+	
+	Doctor docs = (Doctor)hospital;
+	
+	public boolean feelsCaredFor() {
+		for (int i = 0; i < docs.caredFor.size(); i++) {
+			if(docs.caredFor.contains(docs.docsPats.get(i))) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void checkPulse() {
-		
+		for (int i = 0; i < docs.docsPats.size(); i++) {
+			docs.caredFor.add(docs.docsPats.get(i));
+		}
 	}
 }
