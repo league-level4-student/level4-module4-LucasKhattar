@@ -55,7 +55,6 @@ class Doctor {
 	public void assignPatient(Patient max) throws DoctorFullException {
 		if(docsPats.size() < 3) {				
 			docsPats.add(max);
-			System.out.println(max);
 		}
 		else {
 			throw new DoctorFullException();
