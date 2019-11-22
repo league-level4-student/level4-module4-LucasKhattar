@@ -1,34 +1,30 @@
 package _04_hospital;
 
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.internal.runners.statements.Fail;
 class DoctorFullException extends Exception {}
 
 public class Hospital {
-	List<Doctor> docs = new ArrayList();
-	List<Patient> pats = new ArrayList();
-	Hospital hospital = new Hospital();
+	ArrayList<Doctor> docs = new ArrayList<Doctor>();
+	ArrayList<Patient> pats = new ArrayList<Patient>();
+	
 	public Hospital() {
-		
 	}
 
-	public static void main(String[] args) {
-		
-	}
-
-	public void addDoctor(GeneralPractitioner generalPractitioner) {
-		docs.add(generalPractitioner);
+	public void addDoctor(Doctor dr) {
+		docs.add(dr);
 	}
 	
-	public void addDoctor(Surgeon surgeon) {
-		docs.add(surgeon);
-	}
-
 	public void addPatient(Patient patient) {
 		pats.add(patient);
 	}
 
-	public List<Doctor> getDoctors() {
+	public ArrayList<Doctor> getDoctors() {
+		
 		return docs;
 	}
 
@@ -37,25 +33,29 @@ public class Hospital {
 	}
 
 	public void assignPatientsToDoctors() throws DoctorFullException{
-		for (Patient pat: pats) {
-			for (Doctor doc: docs) {
-				Doctor docs = (Doctor)hospital;
-				docs.assignPatient(pat);
+		int doc = 0;
+		for (int i = 0; i < pats.size(); i++) {
+			try {
+				docs.get(doc).assignPatient(pats.get(i));
+			} catch (DoctorFullException e) {
+				doc++;
+				i--;
 			}
 		}
 	}
 }
 
-class Doctor extends Hospital{
-	List<Patient> docsPats = new ArrayList();
-	List<Patient> caredFor = new ArrayList();
+class Doctor {
+	ArrayList<Patient> docsPats = new ArrayList<Patient>();
+
 	public Doctor() {
-		super();
+		
 	}
 	
 	public void assignPatient(Patient max) throws DoctorFullException {
 		if(docsPats.size() < 3) {				
 			docsPats.add(max);
+			System.out.println(max);
 		}
 		else {
 			throw new DoctorFullException();
@@ -72,8 +72,12 @@ class Doctor extends Hospital{
 
 	public void doMedicine() {
 		for (int i = 0; i < docsPats.size(); i++) {
-			caredFor.add(docsPats.get(i));
+			docsPats.get(i).checkPulse();
 		}
+	}
+
+	public ArrayList<Patient> getPatients() {
+		return docsPats;
 	}
 }
 
@@ -99,25 +103,21 @@ class Surgeon extends Doctor {
 	}
 }
 
-class Patient extends Hospital{
+class Patient{
+	boolean caredFor = false;
+	
 	Patient(){
-		super();
+		
 	}
 	
-	Doctor docs = (Doctor)hospital;
-	
 	public boolean feelsCaredFor() {
-		for (int i = 0; i < docs.caredFor.size(); i++) {
-			if(docs.caredFor.contains(docs.docsPats.get(i))) {
-				return true;
-			}
+		if(caredFor) {
+			return true;
 		}
 		return false;
 	}
 
 	public void checkPulse() {
-		for (int i = 0; i < docs.docsPats.size(); i++) {
-			docs.caredFor.add(docs.docsPats.get(i));
-		}
+		caredFor = true;
 	}
 }
